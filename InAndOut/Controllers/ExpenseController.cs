@@ -31,20 +31,18 @@ namespace InAndOut.Controllers
             return View();
         }
 
-        // POST: Expenses/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST-Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ExpenseName,Amount")] Expense expense)
+        public IActionResult Create(Expense obj)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(expense);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.Expenses.Add(obj);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
-            return View(expense);
+            return View(obj);
         }
 
 
